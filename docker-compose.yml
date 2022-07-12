@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  maria_db:
+    container_name: maria_db_db
+    build: ./docker/mariadb
+    restart: always
+    volumes:
+      - data_exampleapi_db:/var/lib/mysql
+      - ./docker/mariadb/data:/mariadb/data
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASS}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    ports:
+      - 3306:3306
+
+  be_api:
+    build: .
+    container_name: be_api
+    environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+      - API_KEY=${API_KEY}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - API_DB_USER=${DB_USER}
+      - API_DB_PASS=${DB_PASS}
+      - FIREBASE_SERVICE_ACCOUNT=${FIREBASE_SERVICE_ACCOUNT}
+    links:
+      - maria_db
+    depends_on:
+      - maria_db
+    volumes:
+    - ./log:/app/log
+    ports:
+      - 8080:8080
+
+volumes:
+  data_api_db:
+    driver: local

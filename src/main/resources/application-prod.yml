@@ -1,0 +1,29 @@
+# Spring props
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASS}
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  file:
+    name: log/${SPRING_PROFILES_ACTIVE}.log
+  level:
+    org.springframework.security: INFO
+    org.springframework.session: INFO
+    org.springframework.web.servlet: INFO
+
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: never
+    include-stacktrace: never # never in production
+    include-exception: false
+
+firebase:
+  service-account: ${FIREBASE_SERVICE_ACCOUNT}

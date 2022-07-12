@@ -1,0 +1,44 @@
+# Spring props
+spring:
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDB103Dialect
+        jdbc:
+          time_zone: UTC
+    hibernate:
+      ddl-auto: validate
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  data:
+    web:
+      pageable:
+        size-parameter: item
+        page-parameter: page
+        default-page-size: 30
+        one-indexed-parameters: true
+        prefix:
+        qualifier-delimiter: _
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.session: INFO
+    org.springframework.web.servlet: DEBUG
+    org.hibernate: ERROR
+
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-exception: true
+  servlet:
+    context-path: /api
+
+app:
+  tz: GMT+9
+
+firebase:
+  service-account: ${FIREBASE_SERVICE_ACCOUNT}

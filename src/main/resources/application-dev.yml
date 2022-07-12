@@ -1,0 +1,28 @@
+# Spring props
+spring:
+  datasource:
+    url: "jdbc:mariadb://example:3306/example?createDatabaseIfNotExist=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false"
+    username: ${API_DB_USER}
+    password: ${API_DB_PASS}
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  file:
+    name: log/${SPRING_PROFILES_ACTIVE}.log
+  level:
+    org.hibernate.SQL: DEBUG
+
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_trace_param # never in production
+    include-exception: true
+
+
+firebase:
+  service-account: ${FIREBASE_SERVICE_ACCOUNT}
